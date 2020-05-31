@@ -1,7 +1,7 @@
 import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
 
-declare type WatchPositionParams = { latitude: number; longitude: number };
-declare type WatchPositionCallback = (params: WatchPositionParams) => void;
+export type Position = { latitude: number; longitude: number };
+export type WatchPositionCallback = (params: Position) => void;
 
 export const startService = (): void => {
   NativeModules.GPSForegroundModule.startService();

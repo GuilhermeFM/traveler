@@ -1,22 +1,16 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { watchPosition, startService, stopService } from './native/GPSForegroundService';
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
+import Routes from './routes';
 
 const App: React.FC = () => {
-  useEffect(() => {
-    startService();
-    const listener = watchPosition((params) => console.log(params));
-
-    return () => {
-      listener.remove();
-      stopService();
-    };
-  }, []);
-
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>BIKER APP</Text>
-    </View>
+    <NavigationContainer>
+      <StatusBar translucent backgroundColor="transparent" />
+      {/* <StatusBar hidden /> */}
+      <Routes />
+    </NavigationContainer>
   );
 };
 
