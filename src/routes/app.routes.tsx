@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Profile from '../pages/Profile';
-import Map from '../pages/Map';
+import Main from '../pages/Main';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +15,7 @@ const Routes: React.FC = () => {
         },
       }}
     >
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Main" component={Main} />
       {/* <Stack.Screen name="Home" component={Map} /> */}
     </Stack.Navigator>
   );
