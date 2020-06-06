@@ -2,17 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import { format, addSeconds, setHours, setMinutes, setSeconds } from 'date-fns';
 import BackgroundTimer from 'react-native-background-timer';
 
-import {
-  TimerContainer,
-  TimerText,
-  ButtonContainer,
-  StartButton,
-  StartButtonText,
-  StopButton,
-  StopButtonText,
-  ResetButton,
-  ResetButtonText,
-} from './styles';
+import { TimerContainer, TimerText, ButtonContainer, Button, ButtonText } from './styles';
 
 interface TimerProps {
   onTimerStart(): void;
@@ -56,18 +46,18 @@ const Timer: React.FC<TimerProps> = ({ onTimerStart, onTimerStop, onTimerReset }
 
       <ButtonContainer>
         {timerStarted ? (
-          <StopButton onPress={() => stopTimer()}>
-            <StopButtonText>Parar</StopButtonText>
-          </StopButton>
+          <Button onPress={() => stopTimer()}>
+            <ButtonText>Parar</ButtonText>
+          </Button>
         ) : (
-          <StartButton onPress={() => startTimer()}>
-            <StartButtonText>Iniciar</StartButtonText>
-          </StartButton>
+          <Button onPress={() => startTimer()}>
+            <ButtonText>Iniciar</ButtonText>
+          </Button>
         )}
 
-        <ResetButton onPress={() => resetTimer()}>
-          <ResetButtonText>Reiniciar</ResetButtonText>
-        </ResetButton>
+        <Button onPress={() => resetTimer()}>
+          <ButtonText>Reiniciar</ButtonText>
+        </Button>
       </ButtonContainer>
     </TimerContainer>
   );

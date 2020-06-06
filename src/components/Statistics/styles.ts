@@ -1,40 +1,47 @@
 import styled from 'styled-components/native';
+import { scale } from '../../utils/Scaler';
 
 export const StatisticsContainer = styled.View`
-  flex: 1;
-  align-items: center;
   width: 100%;
-
-  margin-top: 30px;
 `;
 
 export const StatisticsHeader = styled.Text`
-  width: 100%;
+  align-self: flex-start;
 
   text-align: left;
-  font-size: 18px;
+  font-size: ${scale(15)}px;
   font-weight: bold;
   color: #fff;
 `;
 
 export const StatisticsInfo = styled.View`
-  height: 60px;
+  height: ${scale(60)}px;
 
+  align-self: stretch;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
-  margin-top: 20px;
-  padding: 0 20px 0 20px;
+  margin-top: ${scale(20)}px;
+  padding: 0 ${scale(20)}px 0 ${scale(20)}px;
+`;
+
+export const Header = styled.Text`
+  color: #a1a4b0;
+  font-size: ${scale(15)}px;
+`;
+
+export const Info = styled.Text`
+  color: #fcfcfc;
+  font-size: ${scale(30)}px;
 `;
 
 export const AverageDaily = styled.View`
   flex: 1;
-`;
+  border-right-width: 0.5px;
+  border-right-color: #383f5b;
 
-export const AverageDailyHeader = styled.Text`
-  color: #a1a4b0;
-  font-size: 15px;
+  padding-right: ${scale(15)}px;
 `;
 
 export const AverageDailyInfoContainer = styled.View`
@@ -42,26 +49,12 @@ export const AverageDailyInfoContainer = styled.View`
   align-items: baseline;
 `;
 
-export const AverageDailyInfo = styled.Text`
-  color: #fcfcfc;
-  font-size: 30px;
-`;
-
-export const Separator = styled.View`
-  width: 0.5px;
-  height: 100%;
-  background-color: #383f5b;
-
-  margin: 0 15px 0 15px;
-`;
-
 export const Total = styled.View`
   flex: 1;
-`;
+  border-left-width: 0.5px;
+  border-left-color: #383f5b;
 
-export const TotalHeader = styled.Text`
-  color: #a1a4b0;
-  font-size: 15px;
+  padding-left: ${scale(15)}px;
 `;
 
 export const TotalInfoContainer = styled.View`
@@ -69,13 +62,9 @@ export const TotalInfoContainer = styled.View`
   align-items: baseline;
 `;
 
-export const TotalInfo = styled.Text`
-  color: #fcfcfc;
-  font-size: 30px;
-`;
-
 export const Unit = styled.Text`
-  margin-left: 5px;
   color: #a1a4b0;
-  padding-bottom: 5px;
+  margin-left: ${scale(5)}px;
+  padding-bottom: ${scale(5)}px;
+  font-size: ${scale(13)}px;
 `;

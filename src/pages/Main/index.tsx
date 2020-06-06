@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { FlatList } from 'react-native';
 
 import { v4 as uuidv4 } from 'uuid';
 import { getTime } from 'date-fns';
@@ -8,12 +7,11 @@ import * as GeoLib from 'geolib';
 
 import GPSForegroundService, { Position } from '../../native/GPSForegroundService';
 
-import ExerciseStatistics from '../../components/ExerciseStatistics';
-import ExerciseRouteEmpty from '../../components/ExerciseRouteEmpty';
-import ExerciseRouteItem from '../../components/ExerciseRouteItem';
-import ExerciseTimer from '../../components/ExerciseTimer';
+import Statistics from '../../components/Statistics';
+import TravelItem from '../../components/Traveltem';
+import Timer from '../../components/Timer';
 
-import { Container, RoutesListContainer } from './styles';
+import { Container, TravelContainer, TravelHeader, TravelList } from './styles';
 
 interface Travel {
   id: string;
@@ -52,7 +50,7 @@ const Main: React.FC = () => {
       coordenates: coordenatesRefValue.current,
     };
 
-    const newTravels = travels.length > 0 ? [...travels, { ...travel }] : [{ ...travel }];
+    const newTravels = travels.length > 0 ? [{ ...travel }, ...travels] : [{ ...travel }];
     await AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
     setTravels(newTravels);
 
@@ -83,25 +81,26 @@ const Main: React.FC = () => {
 
   return (
     <Container>
-      <ExerciseTimer onTimerStart={handleStartTimer} onTimerStop={handleStopTimer} onTimerReset={handleResetTimer} />
-      <ExerciseStatistics totalDistance={totalDistance} averageDailyDistance={averageDistance} />
+      <Timer onTimerStart={handleStartTimer} onTimerStop={handleStopTimer} onTimerReset={handleResetTimer} />
+      <Statistics totalDistance={totalDistance} averageDailyDistance={averageDistance} />
 
-      <RoutesListContainer>
-        <FlatList
+      <TravelContainer>
+        <TravelHeader>ATIVIDADES PASSADAS</TravelHeader>
+        <TravelList
           horizontal
           data={travels}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(currentTravel) => currentTravel.id}
-          ListEmptyComponent={() => <ExerciseRouteEmpty />}
+          ListEmptyComponent={() => <TravelItem route={[]} date={getTime(new Date())} distance={0} />}
           renderItem={({ item: currentTravel }) => (
-            <ExerciseRouteItem
+            <TravelItem
               route={currentTravel.coordenates}
               date={currentTravel.travelDate}
               distance={currentTravel.totalDistance}
             />
           )}
         />
-      </RoutesListContainer>
+      </TravelContainer>
     </Container>
   );
 };

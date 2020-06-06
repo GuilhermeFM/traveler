@@ -4,15 +4,12 @@ import {
   StatisticsContainer,
   StatisticsHeader,
   StatisticsInfo,
+  Header,
+  Info,
   AverageDaily,
-  AverageDailyHeader,
   AverageDailyInfoContainer,
-  AverageDailyInfo,
-  Separator,
   Total,
-  TotalHeader,
   TotalInfoContainer,
-  TotalInfo,
   Unit,
 } from './styles';
 
@@ -34,20 +31,19 @@ const ExerciseStatistics: React.FC<ExerciseStatisticsProps> = ({ averageDailyDis
 
   return (
     <StatisticsContainer>
-      <StatisticsHeader>Estatísticas</StatisticsHeader>
+      <StatisticsHeader>ESTATÍSTICAS</StatisticsHeader>
       <StatisticsInfo>
         <AverageDaily>
-          <AverageDailyHeader>Distância Média</AverageDailyHeader>
+          <Header>Distância Média</Header>
           <AverageDailyInfoContainer>
-            <AverageDailyInfo>{formatedAverageDailyDistance}</AverageDailyInfo>
+            <Info>{formatedAverageDailyDistance}</Info>
             <Unit>KMs</Unit>
           </AverageDailyInfoContainer>
         </AverageDaily>
-        <Separator />
         <Total>
-          <TotalHeader>Distância Total</TotalHeader>
+          <Header>Distância Total</Header>
           <TotalInfoContainer>
-            <TotalInfo>{formatedTotalDistance}</TotalInfo>
+            <Info>{formatedTotalDistance}</Info>
             <Unit>KMs</Unit>
           </TotalInfoContainer>
         </Total>
