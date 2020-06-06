@@ -65,7 +65,7 @@ const ExerciseRouteItem: React.FC<ExerciseRouteItemProps> = ({ route, date, dist
           <Unit>KMs</Unit>
         </RouteListItemDailyInfoContainer>
       </TravelInfoContainer>
-      <MapView liteMode style={{ width: '100%', height: '55%' }} provider={PROVIDER_GOOGLE} region={region}>
+      <MapView liteMode style={{ width: '100%', height: '60%' }} provider={PROVIDER_GOOGLE} region={region}>
         {route && route.length > 0 && (
           <Polyline coordinates={route} strokeWidth={2.5} lineJoin="round" lineCap="butt" />
         )}

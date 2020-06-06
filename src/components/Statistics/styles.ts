@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { scale } from '../../utils/Scaler';
+import { scale, verticalScale } from '../../utils/Scaler';
 
 export const StatisticsContainer = styled.View`
   width: 100%;
@@ -9,31 +9,31 @@ export const StatisticsHeader = styled.Text`
   align-self: flex-start;
 
   text-align: left;
-  font-size: ${scale(15)}px;
+  font-size: ${verticalScale(15)}px;
   font-weight: bold;
   color: #fff;
 `;
 
 export const StatisticsInfo = styled.View`
-  height: ${scale(60)}px;
+  height: ${verticalScale(60)}px;
 
   align-self: stretch;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
-  margin-top: ${scale(20)}px;
+  margin-top: ${verticalScale(20)}px;
   padding: 0 ${scale(20)}px 0 ${scale(20)}px;
 `;
 
 export const Header = styled.Text`
   color: #a1a4b0;
-  font-size: ${scale(15)}px;
+  font-size: ${verticalScale(15)}px;
 `;
 
 export const Info = styled.Text`
   color: #fcfcfc;
-  font-size: ${scale(30)}px;
+  font-size: ${verticalScale(30)}px;
 `;
 
 export const AverageDaily = styled.View`
@@ -65,6 +65,6 @@ export const TotalInfoContainer = styled.View`
 export const Unit = styled.Text`
   color: #a1a4b0;
   margin-left: ${scale(5)}px;
-  padding-bottom: ${scale(5)}px;
-  font-size: ${scale(13)}px;
+  padding-bottom: ${verticalScale(5)}px;
+  font-size: ${verticalScale(13)}px;
 `;

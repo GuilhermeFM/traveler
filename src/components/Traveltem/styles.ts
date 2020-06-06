@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
-import { scale } from '../../utils/Scaler';
+import { scale, verticalScale } from '../../utils/Scaler';
 
 export const TravelItem = styled.View`
   width: ${scale(280)}px;
-  height: ${scale(180)}px;
+  height: ${verticalScale(220)}px;
 
   background-color: #424966;
   border-radius: 20px;
@@ -13,14 +13,14 @@ export const TravelItem = styled.View`
 `;
 
 export const TravelInfoContainer = styled.View`
-  height: 45%;
+  height: 40%;
   justify-content: center;
-  margin-left: ${scale(20)}px;
+  margin-left: ${verticalScale(20)}px;
 `;
 
 export const RouteListItemDailyHeader = styled.Text`
   color: #a1a4b0;
-  font-size: ${scale(15)}px;
+  font-size: ${verticalScale(15)}px;
 `;
 
 export const RouteListItemDailyInfoContainer = styled.View`
@@ -30,11 +30,11 @@ export const RouteListItemDailyInfoContainer = styled.View`
 
 export const RouteListItemDailyInfo = styled.Text`
   color: #fcfcfc;
-  font-size: ${scale(30)}px;
+  font-size: ${verticalScale(30)}px;
 `;
 
 export const Unit = styled.Text`
   color: #a1a4b0;
   margin-left: ${scale(5)}px;
-  padding-bottom: ${scale(5)}px;
+  padding-bottom: ${verticalScale(5)}px;
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
-import { scale } from '../../utils/Scaler';
+import { scale, verticalScale } from '../../utils/Scaler';
 
 export const Container = styled.View`
   flex: 1;
@@ -16,12 +16,12 @@ export const TravelHeader = styled.Text`
   align-self: flex-start;
 
   text-align: left;
-  font-size: ${scale(15)}px;
+  font-size: ${verticalScale(15)}px;
   font-weight: bold;
   color: #fff;
 `;
 
 export const TravelList = styled(FlatList)`
-  margin-top: ${scale(20)}px;
+  margin-top: ${verticalScale(20)}px;
   margin-left: ${scale(15)}px;
 `;
