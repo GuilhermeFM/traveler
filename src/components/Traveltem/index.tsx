@@ -7,23 +7,24 @@ import { Position } from '../../native/GPSForegroundService';
 
 import {
   Unit,
-  TravelItem,
+  TravelItemContainer,
   TravelInfoContainer,
-  RouteListItemDailyHeader,
-  RouteListItemDailyInfoContainer,
-  RouteListItemDailyInfo,
+  TravelDate,
+  TravelDistanceContainer,
+  TravelDistanceText,
 } from './styles';
 
-interface ExerciseRouteItemProps {
+interface TravelItemProps {
   route: Position[];
   date: number;
   distance: number;
 }
 
-const ExerciseRouteItem: React.FC<ExerciseRouteItemProps> = ({ route, date, distance }) => {
-  const formatedDistance = useMemo(() => new Intl.NumberFormat('pt-BR', { style: 'decimal' }).format(distance), [
-    distance,
-  ]);
+const TravelItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
+  const formatedDistance = useMemo(
+    () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(distance),
+    [distance],
+  );
 
   const formatedDate = useMemo(() => {
     let retorno;
@@ -57,21 +58,21 @@ const ExerciseRouteItem: React.FC<ExerciseRouteItemProps> = ({ route, date, dist
   }, [route]);
 
   return (
-    <TravelItem>
+    <TravelItemContainer>
       <TravelInfoContainer>
-        <RouteListItemDailyHeader>{formatedDate}</RouteListItemDailyHeader>
-        <RouteListItemDailyInfoContainer>
-          <RouteListItemDailyInfo>{formatedDistance}</RouteListItemDailyInfo>
+        <TravelDate>{formatedDate}</TravelDate>
+        <TravelDistanceContainer>
+          <TravelDistanceText>{formatedDistance}</TravelDistanceText>
           <Unit>KMs</Unit>
-        </RouteListItemDailyInfoContainer>
+        </TravelDistanceContainer>
       </TravelInfoContainer>
       <MapView liteMode style={{ width: '100%', height: '60%' }} provider={PROVIDER_GOOGLE} region={region}>
         {route && route.length > 0 && (
-          <Polyline coordinates={route} strokeWidth={2.5} lineJoin="round" lineCap="butt" />
+          <Polyline coordinates={route} strokeWidth={2.5} lineJoin="round" lineCap="round" strokeColor="#015498" />
         )}
       </MapView>
-    </TravelItem>
+    </TravelItemContainer>
   );
 };
 
-export default ExerciseRouteItem;
+export default TravelItem;
