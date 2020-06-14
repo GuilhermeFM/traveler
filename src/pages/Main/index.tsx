@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { FlatList } from 'react-native';
 
 import { v4 as uuidv4 } from 'uuid';
 import { getTime } from 'date-fns';
@@ -7,9 +8,10 @@ import * as GeoLib from 'geolib';
 
 import GPSForegroundService, { Position } from '../../native/GPSForegroundService';
 
-import Statistics from '../../components/Statistics';
-import TravelItem from '../../components/Traveltem';
 import Timer from '../../components/Timer';
+import Statistics from '../../components/Statistics';
+import TravelItem from '../../components/TravelItem';
+import TravelItemAnimated from '../../components/TravelItem/Animated';
 
 import { Container, TravelContainer, TravelHeader, TravelList } from './styles';
 
@@ -23,6 +25,7 @@ interface Travel {
 const Main: React.FC = () => {
   const watchPositionRefValue = useRef<number>(0);
   const coordenatesRefValue = useRef<Position[]>([]);
+  const travelsRef = useRef<FlatList>();
 
   const [totalDistance, setTotalDistance] = useState<number>(0);
   const [averageDistance, setAverageDistance] = useState<number>(0);
@@ -65,6 +68,29 @@ const Main: React.FC = () => {
 
   const handleResetTimer = useCallback(() => {}, []);
 
+  const handleOnItemRemoval = useCallback(
+    (id) => setTravels((prevTravelsState) => prevTravelsState.filter((travel) => travel.id !== id)),
+    [],
+  );
+
+  const handleOnItemFadeIn = useCallback(
+    (id) => {
+      const indexLastElementInTravels = travels.findIndex((travel) => travel.id === id);
+      const isLastElementInTravels = indexLastElementInTravels === travels.length - 1;
+
+      // last and only element on list, set list index to ZERO
+      if (isLastElementInTravels && travels.length === 1) {
+        travelsRef.current?.scrollToIndex({ animated: true, index: 0 });
+      }
+
+      // last element on list, set list index to last - 1
+      if (isLastElementInTravels && travels.length > 1) {
+        travelsRef.current?.scrollToIndex({ animated: true, index: indexLastElementInTravels - 1 });
+      }
+    },
+    [travels],
+  );
+
   useEffect(() => {
     const loadStoredRoutes = async (): Promise<void> => {
       const travelsString = await AsyncStorage.getItem('@Biker/Travels');
@@ -87,17 +113,22 @@ const Main: React.FC = () => {
       <TravelContainer>
         <TravelHeader>ATIVIDADES PASSADAS</TravelHeader>
         <TravelList
+          ref={travelsRef}
           horizontal
           data={travels}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(currentTravel) => currentTravel.id}
-          ListEmptyComponent={() => <TravelItem route={[]} date={getTime(new Date())} distance={0} />}
           renderItem={({ item: currentTravel }) => (
-            <TravelItem
-              route={currentTravel.coordenates}
-              date={currentTravel.travelDate}
-              distance={currentTravel.totalDistance}
-            />
+            <TravelItemAnimated
+              onItemFadeIn={() => handleOnItemFadeIn(currentTravel.id)}
+              onItemRemoval={() => handleOnItemRemoval(currentTravel.id)}
+            >
+              <TravelItem
+                route={currentTravel.coordenates}
+                date={currentTravel.travelDate}
+                distance={currentTravel.totalDistance}
+              />
+            </TravelItemAnimated>
           )}
         />
       </TravelContainer>

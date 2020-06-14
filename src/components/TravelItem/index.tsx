@@ -1,18 +1,11 @@
 import React, { useMemo } from 'react';
-import { format, isYesterday, isToday } from 'date-fns';
 import MapView, { Polyline, Region, PROVIDER_GOOGLE } from 'react-native-maps';
+
 import * as GeoLib from 'geolib';
+import { format, isYesterday, isToday } from 'date-fns';
 
 import { Position } from '../../native/GPSForegroundService';
-
-import {
-  Unit,
-  TravelItemContainer,
-  TravelInfoContainer,
-  TravelDate,
-  TravelDistanceContainer,
-  TravelDistanceText,
-} from './styles';
+import { TravelInfoContainer, TravelDate, TravelDistanceContainer, TravelDistanceText, Unit } from './styles';
 
 interface TravelItemProps {
   route: Position[];
@@ -20,7 +13,7 @@ interface TravelItemProps {
   distance: number;
 }
 
-const TravelItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
+const TravelsItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
   const formatedDistance = useMemo(
     () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(distance),
     [distance],
@@ -58,7 +51,7 @@ const TravelItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
   }, [route]);
 
   return (
-    <TravelItemContainer>
+    <>
       <TravelInfoContainer>
         <TravelDate>{formatedDate}</TravelDate>
         <TravelDistanceContainer>
@@ -71,8 +64,8 @@ const TravelItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
           <Polyline coordinates={route} strokeWidth={2.5} lineJoin="round" lineCap="round" strokeColor="#015498" />
         )}
       </MapView>
-    </TravelItemContainer>
+    </>
   );
 };
 
-export default TravelItem;
+export default TravelsItem;

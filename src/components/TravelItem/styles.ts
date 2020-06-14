@@ -1,17 +1,6 @@
 import styled from 'styled-components/native';
 import { scale, verticalScale } from '../../utils/Scaler';
 
-export const TravelItemContainer = styled.View`
-  width: ${scale(280)}px;
-  height: ${verticalScale(220)}px;
-
-  background-color: #424966;
-  border-radius: 20px;
-  overflow: hidden;
-
-  margin-right: ${scale(10)}px;
-`;
-
 export const TravelInfoContainer = styled.View`
   height: 40%;
   justify-content: center;

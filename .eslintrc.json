@@ -36,6 +36,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
     "no-unused-expressions": "off",
+    "no-bitwise": "off",
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-explicit-any": "off",
