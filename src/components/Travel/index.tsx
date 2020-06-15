@@ -26,16 +26,23 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
   const travelsRef = useRef<FlatList>(null);
 
-  // Callback used as workaround to fix a problem
-  // when animating the last element of list.
   const handleOnItemFadeIn = useCallback(
     (id) => {
       const index = travels.findIndex((travel) => travel.id === id);
       if (index === travels.length - 1) {
         travelsRef.current?.scrollToIndex({ animated: true, index: index - 1 });
       }
+
+      // We use setTimeout here because RN wont
+      // give us a way to use callbacks after scrollTo
+      // animation complete [That could save me a lot
+      // of tricks in this code :(].
+      setTimeout(() => {
+        LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
+        onItemRemoval(id);
+      }, 100);
     },
-    [travels],
+    [travels, onItemRemoval],
   );
 
   return (
@@ -52,13 +59,7 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
       showsHorizontalScrollIndicator={false}
       keyExtractor={(currentTravel) => currentTravel.id}
       renderItem={({ item: currentTravel }) => (
-        <TravelItemAnimated
-          onItemFadeIn={() => handleOnItemFadeIn(currentTravel.id)}
-          onItemRemoval={() => {
-            LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
-            onItemRemoval(currentTravel.id);
-          }}
-        >
+        <TravelItemAnimated onItemFadeIn={() => handleOnItemFadeIn(currentTravel.id)}>
           <TravelItem
             route={currentTravel.coordenates}
             date={currentTravel.travelDate}

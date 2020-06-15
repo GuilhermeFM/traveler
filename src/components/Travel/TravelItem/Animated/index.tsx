@@ -5,11 +5,10 @@ import { PanGestureHandler, PanGestureHandlerStateChangeEvent, State } from 'rea
 import { scale, verticalScale } from '../../../../utils/Scaler';
 
 interface AnimatedTravelItemProps {
-  onItemRemoval(): void;
   onItemFadeIn(): void;
 }
 
-const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onItemRemoval, onItemFadeIn }) => {
+const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onItemFadeIn }) => {
   const positionY = useRef<Animated.Value>(new Animated.Value(0));
   const opacity = useRef<Animated.Value>(new Animated.Value(1));
 
@@ -17,20 +16,15 @@ const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onIte
     (event: PanGestureHandlerStateChangeEvent) => {
       const { state, translationY } = event.nativeEvent;
 
-      // We use setTimeout here because RN wont
-      // give us a way to use callbacks after scrollTo
-      // animation complete [That could save me a lot
-      // of tricks in this code :(].
       if (state === State.END && translationY >= 100) {
         Animated.timing(opacity.current, { toValue: 0, useNativeDriver: true }).start(() => {
           onItemFadeIn();
-          setTimeout(() => onItemRemoval(), 100);
         });
       } else if (state === State.END) {
         Animated.spring(positionY.current, { toValue: 0, bounciness: 0, useNativeDriver: true }).start();
       }
     },
-    [onItemRemoval, onItemFadeIn],
+    [onItemFadeIn],
   );
 
   return (
