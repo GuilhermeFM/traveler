@@ -29,18 +29,22 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
   const handleOnItemFadeIn = useCallback(
     (id) => {
       const index = travels.findIndex((travel) => travel.id === id);
+
       if (index === travels.length - 1) {
         travelsRef.current?.scrollToIndex({ animated: true, index: index - 1 });
-      }
 
-      // We use setTimeout here because RN wont
-      // give us a way to use callbacks after scrollTo
-      // animation complete [That could save me a lot
-      // of tricks in this code :(].
-      setTimeout(() => {
+        // We use setTimeout here because RN wont
+        // give us a way to use callbacks after scrollTo
+        // animation complete [That could save me a lot
+        // of tricks in this code :(].
+        setTimeout(() => {
+          LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
+          onItemRemoval(id);
+        }, 100);
+      } else {
         LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
         onItemRemoval(id);
-      }, 100);
+      }
     },
     [travels, onItemRemoval],
   );
