@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { scale, verticalScale } from '../../utils/Scaler';
+import { scale, verticalScale } from '../../../utils/Scaler';
 
 export const TravelInfoContainer = styled.View`
   height: 40%;

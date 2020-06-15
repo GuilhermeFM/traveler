@@ -4,7 +4,7 @@ import MapView, { Polyline, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as GeoLib from 'geolib';
 import { format, isYesterday, isToday } from 'date-fns';
 
-import { Position } from '../../native/GPSForegroundService';
+import { Position } from '../../../native/GPSForegroundService';
 import { TravelInfoContainer, TravelDate, TravelDistanceContainer, TravelDistanceText, Unit } from './styles';
 
 interface TravelItemProps {

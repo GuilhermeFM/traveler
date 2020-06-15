@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { FlatList } from 'react-native';
 import { scale, verticalScale } from '../../utils/Scaler';
 
 export const Container = styled.View`
@@ -19,9 +18,4 @@ export const TravelHeader = styled.Text`
   font-size: ${verticalScale(15)}px;
   font-weight: bold;
   color: #fff;
-`;
-
-export const TravelList = styled(FlatList)`
-  margin-top: ${verticalScale(20)}px;
-  margin-left: ${scale(15)}px;
 `;
