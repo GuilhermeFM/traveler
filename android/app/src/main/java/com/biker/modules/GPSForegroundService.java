@@ -79,7 +79,7 @@ public class GPSForegroundService extends Service implements LocationListener {
     builder = builder.setContentTitle("Bike Tracker");
     builder = builder.setContentText("Bike Tracker is running in background to collect location data.");
     builder = builder.setTicker("TICKER TEXT");
-    builder = builder.setSmallIcon(R.mipmap.ic_launcher_round);
+    builder = builder.setSmallIcon(R.drawable.icon);
     builder = builder.setContentIntent(pendingIntent);
     builder = builder.setOngoing(true);
 
