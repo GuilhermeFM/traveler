@@ -42,7 +42,7 @@ const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onIte
           width: scale(280),
           transform: [{ translateY: positionY.current }],
 
-          height: verticalScale(220),
+          // height: verticalScale(220),
           backgroundColor: '#424966',
           borderRadius: 20,
           overflow: 'hidden',

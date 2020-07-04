@@ -3,12 +3,12 @@ import { scale, verticalScale } from '../../utils/Scaler';
 
 export const Container = styled.View`
   flex: 1;
-  justify-content: space-evenly;
   padding: 0 ${scale(20)}px 0 ${scale(20)}px;
 `;
 
 export const TravelContainer = styled.View`
-  flex-grow: 0;
+  flex: 1.25;
+  margin-bottom: ${verticalScale(15)}px;
 `;
 
 export const TravelHeader = styled.Text`

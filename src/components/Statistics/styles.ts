@@ -3,6 +3,7 @@ import { scale, verticalScale } from '../../utils/Scaler';
 
 export const StatisticsContainer = styled.View`
   width: 100%;
+  flex: 0.75;
 `;
 
 export const StatisticsHeader = styled.Text`

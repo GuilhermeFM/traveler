@@ -30,7 +30,7 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
     (id) => {
       const index = travels.findIndex((travel) => travel.id === id);
 
-      if (index === travels.length - 1) {
+      if (index === travels.length - 1 && index - 1 >= 0) {
         travelsRef.current?.scrollToIndex({ animated: true, index: index - 1 });
 
         // We use setTimeout here because RN wont
@@ -39,7 +39,7 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
         setTimeout(() => {
           LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
           onItemRemoval(id);
-        }, 100);
+        }, 200);
       } else {
         LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
         onItemRemoval(id);
@@ -54,6 +54,7 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
       style={{
         marginTop: verticalScale(20),
         marginLeft: scale(15),
+        width: scale(295),
       }}
       ref={travelsRef}
       data={travels}

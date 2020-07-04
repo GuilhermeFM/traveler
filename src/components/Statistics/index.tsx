@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import StatistcsLoader from '../StatistcsLoader';
+
 import {
   StatisticsContainer,
   StatisticsHeader,
@@ -16,9 +18,14 @@ import {
 interface ExerciseStatisticsProps {
   averageDailyDistance: number;
   totalDistance: number;
+  loading: boolean;
 }
 
-const ExerciseStatistics: React.FC<ExerciseStatisticsProps> = ({ averageDailyDistance = 0, totalDistance = 0 }) => {
+const ExerciseStatistics: React.FC<ExerciseStatisticsProps> = ({
+  loading,
+  averageDailyDistance = 0,
+  totalDistance = 0,
+}) => {
   const formatedAverageDailyDistance = useMemo(
     () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(averageDailyDistance),
     [averageDailyDistance],
@@ -31,23 +38,29 @@ const ExerciseStatistics: React.FC<ExerciseStatisticsProps> = ({ averageDailyDis
 
   return (
     <StatisticsContainer>
-      <StatisticsHeader>ESTATÍSTICAS</StatisticsHeader>
-      <StatisticsInfo>
-        <AverageDaily>
-          <Header>Distância Média</Header>
-          <AverageDailyInfoContainer>
-            <Info>{formatedAverageDailyDistance}</Info>
-            <Unit>KMs</Unit>
-          </AverageDailyInfoContainer>
-        </AverageDaily>
-        <Total>
-          <Header>Distância Total</Header>
-          <TotalInfoContainer>
-            <Info>{formatedTotalDistance}</Info>
-            <Unit>KMs</Unit>
-          </TotalInfoContainer>
-        </Total>
-      </StatisticsInfo>
+      {loading ? (
+        <StatistcsLoader />
+      ) : (
+        <>
+          <StatisticsHeader>ESTATÍSTICAS</StatisticsHeader>
+          <StatisticsInfo>
+            <AverageDaily>
+              <Header>Distância Média</Header>
+              <AverageDailyInfoContainer>
+                <Info>{formatedAverageDailyDistance}</Info>
+                <Unit>KMs</Unit>
+              </AverageDailyInfoContainer>
+            </AverageDaily>
+            <Total>
+              <Header>Distância Total</Header>
+              <TotalInfoContainer>
+                <Info>{formatedTotalDistance}</Info>
+                <Unit>KMs</Unit>
+              </TotalInfoContainer>
+            </Total>
+          </StatisticsInfo>
+        </>
+      )}
     </StatisticsContainer>
   );
 };

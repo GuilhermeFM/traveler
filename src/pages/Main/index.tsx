@@ -17,6 +17,7 @@ const Main: React.FC = () => {
   const watchPositionRefValue = useRef<number>(0);
   const coordenatesRefValue = useRef<Position[]>([]);
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [totalDistance, setTotalDistance] = useState<number>(0);
   const [averageDistance, setAverageDistance] = useState<number>(0);
   const [travels, setTravels] = useState<Travel[]>([]);
@@ -79,15 +80,18 @@ const Main: React.FC = () => {
       if (travelsString) setTravels(JSON.parse(travelsString));
       if (totalDistanceString) setTotalDistance(JSON.parse(totalDistanceString));
       if (averageDistanceString) setAverageDistance(JSON.parse(averageDistanceString));
+
+      setTimeout(() => setLoading(false), 3000);
     };
 
+    setLoading(true);
     loadStoredRoutes();
   }, []);
 
   return (
     <Container>
       <Timer onTimerStart={handleStartTimer} onTimerStop={handleStopTimer} onTimerReset={handleResetTimer} />
-      <Statistics totalDistance={totalDistance} averageDailyDistance={averageDistance} />
+      <Statistics loading={loading} totalDistance={totalDistance} averageDailyDistance={averageDistance} />
 
       <TravelContainer>
         <TravelHeader>ATIVIDADES PASSADAS</TravelHeader>

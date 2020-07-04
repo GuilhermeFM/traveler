@@ -2,7 +2,9 @@ import styled from 'styled-components/native';
 import { scale, verticalScale } from '../../utils/Scaler';
 
 export const TimerContainer = styled.View`
+  flex: 1;
   align-items: center;
+  margin-top: ${verticalScale(60)}px;
 `;
 
 export const TimerText = styled.Text`
