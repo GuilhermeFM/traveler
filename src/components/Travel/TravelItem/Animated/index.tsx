@@ -1,14 +1,13 @@
 import React, { useRef, useCallback } from 'react';
-import { Animated } from 'react-native';
+import { Animated, ViewStyle } from 'react-native';
 import { PanGestureHandler, PanGestureHandlerStateChangeEvent, State } from 'react-native-gesture-handler';
-
-import { scale, verticalScale } from '../../../../utils/Scaler';
 
 interface AnimatedTravelItemProps {
   onItemFadeIn(): void;
+  style: ViewStyle;
 }
 
-const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onItemFadeIn }) => {
+const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, style, onItemFadeIn }) => {
   const positionY = useRef<Animated.Value>(new Animated.Value(0));
   const opacity = useRef<Animated.Value>(new Animated.Value(1));
 
@@ -37,15 +36,9 @@ const AnimatedTravelItem: React.FC<AnimatedTravelItemProps> = ({ children, onIte
     >
       <Animated.View
         style={{
+          ...style,
           opacity: opacity.current,
-          marginRight: scale(10),
-          width: scale(280),
           transform: [{ translateY: positionY.current }],
-
-          // height: verticalScale(220),
-          backgroundColor: '#424966',
-          borderRadius: 20,
-          overflow: 'hidden',
         }}
       >
         {children}

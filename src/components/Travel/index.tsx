@@ -52,9 +52,9 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
     <FlatList<Travel>
       horizontal
       style={{
-        marginTop: verticalScale(20),
-        marginLeft: scale(15),
         width: scale(295),
+        marginLeft: scale(15),
+        marginTop: verticalScale(20),
       }}
       ref={travelsRef}
       data={travels}
@@ -63,7 +63,16 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
       showsHorizontalScrollIndicator={false}
       keyExtractor={(currentTravel) => currentTravel.id}
       renderItem={({ item: currentTravel }) => (
-        <TravelItemAnimated onItemFadeIn={() => handleOnItemFadeIn(currentTravel.id)}>
+        <TravelItemAnimated
+          style={{
+            width: scale(280),
+            marginRight: scale(10),
+            borderRadius: 20,
+            overflow: 'hidden',
+            backgroundColor: '#424966',
+          }}
+          onItemFadeIn={() => handleOnItemFadeIn(currentTravel.id)}
+        >
           <TravelItem
             route={currentTravel.coordenates}
             date={currentTravel.travelDate}
