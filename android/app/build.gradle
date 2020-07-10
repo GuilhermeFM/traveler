@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.biker"
+        applicationId "com.traveler"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

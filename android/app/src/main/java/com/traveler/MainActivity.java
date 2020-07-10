@@ -1,10 +1,10 @@
-package com.biker;
+package com.traveler;
 
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
-    return "Biker";
+    return "Traveler";
   }
 }

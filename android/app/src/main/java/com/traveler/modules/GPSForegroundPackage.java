@@ -1,4 +1,4 @@
-package com.biker.modules;
+package com.traveler.modules;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

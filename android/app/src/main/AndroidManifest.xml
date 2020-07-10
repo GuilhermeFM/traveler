@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.biker">
+  package="com.traveler">
 
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -9,7 +9,7 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
   <application
-    android:name=".MainApplication"
+    android:name="com.traveler.MainApplication"
     android:allowBackup="false"
     android:icon="@drawable/icon_preto"
     android:label="@string/app_name"
@@ -25,7 +25,7 @@
       android:required="false" />
 
     <activity
-      android:name=".MainActivity"
+      android:name="com.traveler.MainActivity"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
       android:label="@string/app_name"
       android:launchMode="singleTask"
@@ -37,6 +37,6 @@
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-    <service android:name=".modules.GPSForegroundService" />
+    <service android:name="com.traveler.modules.GPSForegroundService" />
   </application>
 </manifest>

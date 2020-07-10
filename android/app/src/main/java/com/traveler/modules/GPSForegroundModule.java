@@ -1,4 +1,4 @@
-package com.biker.modules;
+package com.traveler.modules;
 
 import android.content.ComponentName;
 import android.content.Context;

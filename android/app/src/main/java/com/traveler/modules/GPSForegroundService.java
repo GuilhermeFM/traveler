@@ -1,4 +1,4 @@
-package com.biker.modules;
+package com.traveler.modules;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -18,8 +18,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.biker.MainActivity;
-import com.biker.R;
+import com.traveler.MainActivity;
+import com.traveler.R;
 
 
 public class GPSForegroundService extends Service implements LocationListener {
@@ -66,8 +66,8 @@ public class GPSForegroundService extends Service implements LocationListener {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       int importance = NotificationManager.IMPORTANCE_DEFAULT;
-      NotificationChannel channel = new NotificationChannel("BikeTracker:GeoService", "BikeTracker:GeoService", importance);
-      channel.setDescription("BikeTracker:GeoService");
+      NotificationChannel channel = new NotificationChannel("TravelerTracker:GeoService", "TravelerTracker:GeoService", importance);
+      channel.setDescription("TravelerTracker:GeoService");
       NotificationManager notificationManager = getSystemService(NotificationManager.class);
       notificationManager.createNotificationChannel(channel);
     }
@@ -75,10 +75,9 @@ public class GPSForegroundService extends Service implements LocationListener {
     Intent notificationIntent = new Intent(this, MainActivity.class);
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "BikeTracker:GeoService");
-    builder = builder.setContentTitle("Bike Tracker");
-    builder = builder.setContentText("Bike Tracker is running in background to collect location data.");
-    builder = builder.setTicker("TICKER TEXT");
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "TravelerTracker:GeoService");
+    builder = builder.setContentTitle("Traveler");
+    builder = builder.setContentText("Traveler is running in background to collect location data.");
     builder = builder.setSmallIcon(R.drawable.icon);
     builder = builder.setContentIntent(pendingIntent);
     builder = builder.setOngoing(true);
