@@ -46,14 +46,15 @@ const Main: React.FC = () => {
 
     const newTravels = travels.length > 0 ? [{ ...travel }, ...travels] : [{ ...travel }];
     AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
-    setTravels(newTravels);
 
     const newTotalDistance = totalDistance + currentTotalDistanceInKM;
     AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
-    setTotalDistance(newTotalDistance);
 
     const newAverageDistance = newTotalDistance / newTravels.length;
     AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
+
+    setTravels(newTravels);
+    setTotalDistance(newTotalDistance);
     setAverageDistance(newAverageDistance);
   }, [totalDistance, travels]);
 
@@ -70,22 +71,21 @@ const Main: React.FC = () => {
         return;
       }
 
-      const newTotalDistance = totalDistance - removedTravel.totalDistance;
-      AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
-      setTotalDistance(newTotalDistance);
-
       const newTravels = travels.filter((travel) => travel.id !== id);
-      AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
-      setTravels(newTravels);
+      const newTotalDistance = totalDistance - removedTravel.totalDistance;
 
+      let newAverageDistance = 0;
       if (newTravels.length > 0) {
-        const newAverageDistance = newTotalDistance / newTravels.length;
-        AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
-        setAverageDistance(newAverageDistance);
-      } else {
-        AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(0));
-        setAverageDistance(0);
+        newAverageDistance = newTotalDistance / newTravels.length;
       }
+
+      AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
+      AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
+      AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
+
+      setTravels(newTravels);
+      setTotalDistance(newTotalDistance);
+      setAverageDistance(newAverageDistance);
     },
     [totalDistance, travels],
   );
