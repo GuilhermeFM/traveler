@@ -7,6 +7,8 @@ import { Position } from '../../native/GPSForegroundService';
 import TravelItemAnimated from './TravelItem/Animated';
 import TravelItem from './TravelItem';
 
+import { EmptyTravelList, EmptyTravelText } from './styles';
+
 export interface Travel {
   id: string;
   travelDate: number;
@@ -62,6 +64,11 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
       snapToAlignment="end"
       showsHorizontalScrollIndicator={false}
       keyExtractor={(currentTravel) => currentTravel.id}
+      ListEmptyComponent={() => (
+        <EmptyTravelList>
+          <EmptyTravelText>Não atividades a serem exibidas</EmptyTravelText>
+        </EmptyTravelList>
+      )}
       renderItem={({ item: currentTravel }) => (
         <TravelItemAnimated
           style={{
