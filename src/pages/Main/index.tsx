@@ -64,11 +64,30 @@ const Main: React.FC = () => {
   // inside Travels wont be able to 'animate' layout changes.
   const handleOnItemRemoval = useCallback(
     async (id) => {
-      const updatedTravels = travels.filter((travel) => travel.id !== id);
-      AsyncStorage.setItem('@Biker/Travels', JSON.stringify(updatedTravels));
-      setTravels(updatedTravels);
+      const removedTravel = travels.find((travel) => travel.id === id);
+
+      if (!removedTravel) {
+        return;
+      }
+
+      const newTotalDistance = totalDistance - removedTravel.totalDistance;
+      AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
+      setTotalDistance(newTotalDistance);
+
+      const newTravels = travels.filter((travel) => travel.id !== id);
+      AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
+      setTravels(newTravels);
+
+      if (newTravels.length > 0) {
+        const newAverageDistance = newTotalDistance / newTravels.length;
+        AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
+        setAverageDistance(newAverageDistance);
+      } else {
+        AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(0));
+        setAverageDistance(0);
+      }
     },
-    [travels],
+    [totalDistance, travels],
   );
 
   useEffect(() => {
