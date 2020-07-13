@@ -39,9 +39,8 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
         // give us a way to use callbacks after scrollTo
         // animation complete.
         setTimeout(() => {
-          LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
           onItemRemoval(id);
-        }, 200);
+        }, 100);
       } else {
         LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
         onItemRemoval(id);
