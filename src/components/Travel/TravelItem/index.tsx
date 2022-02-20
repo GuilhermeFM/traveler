@@ -5,7 +5,13 @@ import * as GeoLib from 'geolib';
 import { format, isYesterday, isToday } from 'date-fns';
 
 import { Position } from '../../../native/GPSForegroundService';
-import { TravelInfoContainer, TravelDate, TravelDistanceContainer, TravelDistanceText, Unit } from './styles';
+import {
+  TravelInfoContainer,
+  TravelDate,
+  TravelDistanceContainer,
+  TravelDistanceText,
+  Unit,
+} from './styles';
 
 interface TravelItemProps {
   route: Position[];
@@ -15,7 +21,11 @@ interface TravelItemProps {
 
 const TravelsItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
   const formatedDistance = useMemo(
-    () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(distance),
+    () =>
+      new Intl.NumberFormat('pt-BR', {
+        style: 'decimal',
+        maximumFractionDigits: 2,
+      }).format(distance),
     [distance],
   );
 
@@ -59,9 +69,20 @@ const TravelsItem: React.FC<TravelItemProps> = ({ route, date, distance }) => {
           <Unit>KMs</Unit>
         </TravelDistanceContainer>
       </TravelInfoContainer>
-      <MapView liteMode style={{ width: '100%', height: '60%' }} provider={PROVIDER_GOOGLE} region={region}>
+      <MapView
+        liteMode
+        style={{ width: '100%', height: '60%' }}
+        provider={PROVIDER_GOOGLE}
+        region={region}
+      >
         {route && route.length > 0 && (
-          <Polyline coordinates={route} strokeWidth={2.5} lineJoin="round" lineCap="round" strokeColor="#015498" />
+          <Polyline
+            coordinates={route}
+            strokeWidth={2.5}
+            lineJoin="round"
+            lineCap="round"
+            strokeColor="#015498"
+          />
         )}
       </MapView>
     </>

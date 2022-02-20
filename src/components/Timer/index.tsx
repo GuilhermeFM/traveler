@@ -2,7 +2,13 @@ import React, { useRef, useState, useCallback } from 'react';
 import { format, addSeconds, setHours, setMinutes, setSeconds } from 'date-fns';
 import BackgroundTimer from 'react-native-background-timer';
 
-import { TimerContainer, TimerText, ButtonContainer, Button, ButtonText } from './styles';
+import {
+  TimerContainer,
+  TimerText,
+  ButtonContainer,
+  Button,
+  ButtonText,
+} from './styles';
 
 interface TimerProps {
   onTimerStart(): void;
@@ -14,11 +20,17 @@ interface IValueReference {
   value: number;
 }
 
-const Timer: React.FC<TimerProps> = ({ onTimerStart, onTimerStop, onTimerReset }) => {
+const Timer: React.FC<TimerProps> = ({
+  onTimerStart,
+  onTimerStop,
+  onTimerReset,
+}) => {
   const intervalRefValue = useRef<IValueReference>({ value: 0 });
 
   const [timerStarted, setTimerStarted] = useState<boolean>(false);
-  const [timer, setTimer] = useState<Date>(() => setHours(setMinutes(setSeconds(new Date(), 0), 0), 0));
+  const [timer, setTimer] = useState<Date>(() =>
+    setHours(setMinutes(setSeconds(new Date(), 0), 0), 0),
+  );
 
   const startTimer = useCallback(() => {
     setTimerStarted(true);

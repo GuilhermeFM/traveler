@@ -5,7 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { getTime } from 'date-fns';
 import * as GeoLib from 'geolib';
 
-import GPSForegroundService, { Position } from '../../native/GPSForegroundService';
+import GPSForegroundService, {
+  Position,
+} from '../../native/GPSForegroundService';
 
 import Timer from '../../components/Timer';
 import Statistics from '../../components/Statistics';
@@ -26,16 +28,19 @@ const Main: React.FC = () => {
     GPSForegroundService.startService();
 
     coordenatesRefValue.current = [];
-    watchPositionRefValue.current = GPSForegroundService.startWatchPosition((coordenates) => {
-      coordenatesRefValue.current.push(coordenates);
-    });
+    watchPositionRefValue.current = GPSForegroundService.startWatchPosition(
+      (coordenates) => {
+        coordenatesRefValue.current.push(coordenates);
+      },
+    );
   }, []);
 
   const handleStopTimer = useCallback(() => {
     GPSForegroundService.stopWatchPosition(watchPositionRefValue.current);
     GPSForegroundService.stopService();
 
-    const currentTotalDistanceInKM = GeoLib.getPathLength(coordenatesRefValue.current) / 1000;
+    const currentTotalDistanceInKM =
+      GeoLib.getPathLength(coordenatesRefValue.current) / 1000;
 
     const travel: Travel = {
       id: uuidv4(),
@@ -44,14 +49,21 @@ const Main: React.FC = () => {
       coordenates: coordenatesRefValue.current,
     };
 
-    const newTravels = travels.length > 0 ? [{ ...travel }, ...travels] : [{ ...travel }];
+    const newTravels =
+      travels.length > 0 ? [{ ...travel }, ...travels] : [{ ...travel }];
     AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
 
     const newTotalDistance = totalDistance + currentTotalDistanceInKM;
-    AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
+    AsyncStorage.setItem(
+      '@Biker/totalDistance',
+      JSON.stringify(newTotalDistance),
+    );
 
     const newAverageDistance = newTotalDistance / newTravels.length;
-    AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
+    AsyncStorage.setItem(
+      '@Biker/averageDistance',
+      JSON.stringify(newAverageDistance),
+    );
 
     setTravels(newTravels);
     setTotalDistance(newTotalDistance);
@@ -80,8 +92,14 @@ const Main: React.FC = () => {
       }
 
       AsyncStorage.setItem('@Biker/Travels', JSON.stringify(newTravels));
-      AsyncStorage.setItem('@Biker/totalDistance', JSON.stringify(newTotalDistance));
-      AsyncStorage.setItem('@Biker/averageDistance', JSON.stringify(newAverageDistance));
+      AsyncStorage.setItem(
+        '@Biker/totalDistance',
+        JSON.stringify(newTotalDistance),
+      );
+      AsyncStorage.setItem(
+        '@Biker/averageDistance',
+        JSON.stringify(newAverageDistance),
+      );
 
       setTravels(newTravels);
       setTotalDistance(newTotalDistance);
@@ -93,12 +111,18 @@ const Main: React.FC = () => {
   useEffect(() => {
     const loadStoredRoutes = async (): Promise<void> => {
       const travelsString = await AsyncStorage.getItem('@Biker/Travels');
-      const totalDistanceString = await AsyncStorage.getItem('@Biker/totalDistance');
-      const averageDistanceString = await AsyncStorage.getItem('@Biker/averageDistance');
+      const totalDistanceString = await AsyncStorage.getItem(
+        '@Biker/totalDistance',
+      );
+      const averageDistanceString = await AsyncStorage.getItem(
+        '@Biker/averageDistance',
+      );
 
       if (travelsString) setTravels(JSON.parse(travelsString));
-      if (totalDistanceString) setTotalDistance(JSON.parse(totalDistanceString));
-      if (averageDistanceString) setAverageDistance(JSON.parse(averageDistanceString));
+      if (totalDistanceString)
+        setTotalDistance(JSON.parse(totalDistanceString));
+      if (averageDistanceString)
+        setAverageDistance(JSON.parse(averageDistanceString));
 
       setTimeout(() => setLoading(false), 3000);
     };
@@ -109,8 +133,16 @@ const Main: React.FC = () => {
 
   return (
     <Container>
-      <Timer onTimerStart={handleStartTimer} onTimerStop={handleStopTimer} onTimerReset={handleResetTimer} />
-      <Statistics loading={loading} totalDistance={totalDistance} averageDailyDistance={averageDistance} />
+      <Timer
+        onTimerStart={handleStartTimer}
+        onTimerStop={handleStopTimer}
+        onTimerReset={handleResetTimer}
+      />
+      <Statistics
+        loading={loading}
+        totalDistance={totalDistance}
+        averageDailyDistance={averageDistance}
+      />
 
       <TravelContainer>
         <TravelHeader>ATIVIDADES PASSADAS</TravelHeader>

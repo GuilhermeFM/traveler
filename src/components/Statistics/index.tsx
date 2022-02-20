@@ -27,12 +27,20 @@ const ExerciseStatistics: React.FC<ExerciseStatisticsProps> = ({
   totalDistance = 0,
 }) => {
   const formatedAverageDailyDistance = useMemo(
-    () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(averageDailyDistance),
+    () =>
+      new Intl.NumberFormat('pt-BR', {
+        style: 'decimal',
+        maximumFractionDigits: 2,
+      }).format(averageDailyDistance),
     [averageDailyDistance],
   );
 
   const formatedTotalDistance = useMemo(
-    () => new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 2 }).format(totalDistance),
+    () =>
+      new Intl.NumberFormat('pt-BR', {
+        style: 'decimal',
+        maximumFractionDigits: 2,
+      }).format(totalDistance),
     [totalDistance],
   );
 

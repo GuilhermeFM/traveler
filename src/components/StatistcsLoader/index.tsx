@@ -5,7 +5,14 @@ import { scale, verticalScale } from '../../utils/Scaler';
 
 const StatisticsLoader: React.FC = (props) => {
   return (
-    <ContentLoader speed={1} width="100%" height="100%" backgroundColor="#424966" foregroundColor="#dbdbdb" {...props}>
+    <ContentLoader
+      speed={1}
+      width="100%"
+      height="100%"
+      backgroundColor="#424966"
+      foregroundColor="#dbdbdb"
+      {...props}
+    >
       {/* Header */}
       <Rect
         x={scale(0)}

@@ -21,7 +21,10 @@ interface TravelProps {
   onItemRemoval: (id: string) => void;
 }
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
@@ -42,7 +45,10 @@ const Travels: React.FC<TravelProps> = ({ travels, onItemRemoval }) => {
           onItemRemoval(id);
         }, 100);
       } else {
-        LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.linear, duration: 100 });
+        LayoutAnimation.configureNext({
+          ...LayoutAnimation.Presets.linear,
+          duration: 100,
+        });
         onItemRemoval(id);
       }
     },

@@ -1,4 +1,8 @@
-import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
+import {
+  NativeModules,
+  NativeEventEmitter,
+  EmitterSubscription,
+} from 'react-native';
 
 export type Position = { latitude: number; longitude: number };
 export type WatchPositionCallback = (params: Position) => void;
@@ -20,19 +24,32 @@ class GPSForegroundService {
   };
 
   public startWatchPosition = (callback: WatchPositionCallback): number => {
-    const eventEmitter = new NativeEventEmitter(NativeModules.GPSForegroundModule);
-    const eventListener = eventEmitter.addListener('onLocationChanged', callback);
+    const eventEmitter = new NativeEventEmitter(
+      NativeModules.GPSForegroundModule,
+    );
+    const eventListener = eventEmitter.addListener(
+      'onLocationChanged',
+      callback,
+    );
     const lastAddedListenerId = this.registeredListeners.reduce(
-      (prevListenerId, currentListener) => (currentListener.id > prevListenerId ? currentListener.id : prevListenerId),
+      (prevListenerId, currentListener) =>
+        currentListener.id > prevListenerId
+          ? currentListener.id
+          : prevListenerId,
       1,
     );
 
-    this.registeredListeners.push({ eventListener, id: lastAddedListenerId + 1 });
+    this.registeredListeners.push({
+      eventListener,
+      id: lastAddedListenerId + 1,
+    });
     return lastAddedListenerId + 1;
   };
 
   public stopWatchPosition = (id: number): void => {
-    const foundListener = this.registeredListeners.find((currentListener) => currentListener.id === id);
+    const foundListener = this.registeredListeners.find(
+      (currentListener) => currentListener.id === id,
+    );
 
     if (foundListener) {
       foundListener.eventListener.remove();
